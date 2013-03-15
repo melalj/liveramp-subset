@@ -3,7 +3,7 @@
 ## Subset secrets - Challenge program LiveRamp
 ## http://blog.liveramp.com/2013/03/13/subset-secrets/
 #-----------------------------------------------------
-## Developped By Mohammed Elalj - http://www.linkedin.com/in/elalj/en
+## Developped By Mohammed Elalj - https://github.com/melalj/liveramp-subset
 #-------------------------------------------------------------------
 #-------------------------------------------------------------------
 
@@ -63,6 +63,7 @@ def getPeopleKeys(N,M):
 	keyPos = 0
 	privateKeys = getPrivateKeys()
 	# We give people their keys
+	print(D+1)
 	for nb in range(0,N):
 		people.append([])
 		# We append to each user a list of his keys
@@ -76,23 +77,33 @@ def getPeopleKeys(N,M):
 			people[nb].append(privateKeys[keyPos])
 			keyPos+=1
 			if(keyPos==N):
-				keyPos = 1
+				keyPos = 0
 	return (people,privateKeys)
 
 # We make our test !
 message = "Hello LiveRamp !"
-People , PrivateKeys = getPeopleKeys(10,5)
+N = 30
+M = 17
+
+People , PrivateKeys = getPeopleKeys(N,M)
 secret = encrypt( message, PrivateKeys)
 print("Message : " + message)
 print("")
-print("People:")
+print("All People:")
 for i,person in enumerate(People):
 	print "Person %d : %s" % (i,', '.join(person)) 
-print("")
+
+# we shuffle and get M person
+randomRangePeople = [i for i in People]
+random.shuffle(randomRangePeople)
+randomRangePeople = randomRangePeople[0:M]
+# • ISSUE ! 
+# We can reconstruct the secret from [0:M-1] !
+
 print("Secret : " + secret)
 print("")
-print("Reconstruction from secret : ")
-print(decrypt(secret,People))
+print("Reconstruction from secret using %d random people from %d : " % (len(randomRangePeople),N))
+print(decrypt(secret,randomRangePeople))
 
 
 
