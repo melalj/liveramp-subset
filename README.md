@@ -20,5 +20,5 @@ A combinaison of M people is enough to get the full key and decrypt the secret.
 
 I wrote a python script that encrypt a message with a list of private sub-keys (generated randomly), and decrypt a secret from a set of people. However, it's working for K<M people...
 
-We shall use Sharing Secret Sharing Algorithm to correct this issue:
+We shall use Shamir Secret Sharing Algorithm to correct this issue:
 http://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing
